@@ -25,11 +25,19 @@ fn main() {
 
     asterisk(3);
     domatch();
+
+    println!(
+        "{}",
+        match error_handler(true) {
+            Ok(s) => s,
+            Err(e) => e,
+        }
+    )
 }
 
 fn tabuada(n: u8) {
     let mut counter: u8 = 0;
-    panicatthedisco();
+    // panicatthedisco();
     loop {
         counter += 1;
 
@@ -76,6 +84,14 @@ fn domatch() {
     }
 }
 
-fn panicatthedisco() {
-    panic!("aaaaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAA");
+// fn panicatthedisco() {
+//     panic!("aaaaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAA");
+// }
+
+fn error_handler(suc: bool) -> Result<String, String> {
+    if suc {
+        Ok(String::from("Success"))
+    } else {
+        Err(String::from("error.2"))
+    }
 }
