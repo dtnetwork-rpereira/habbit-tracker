@@ -1,6 +1,13 @@
 static mut V_TEST: u8 = 255;
 
-// TODO validar conceito de onwership e anotar no obsidian
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        let result = 2 + 2;
+        assert_eq!(result, 4);
+    }
+}
 
 fn main() {
     unsafe {
@@ -32,7 +39,9 @@ fn main() {
             Ok(s) => s,
             Err(e) => e,
         }
-    )
+    );
+
+    enums();
 }
 
 fn tabuada(n: u8) {
@@ -94,4 +103,27 @@ fn error_handler(suc: bool) -> Result<String, String> {
     } else {
         Err(String::from("error.2"))
     }
+}
+
+fn enums() {
+    enum TestingLibrary {
+        jest,
+        cypress,
+        vitest,
+        other { id: u8, id2: u8 },
+    }
+    let selected_library: TestingLibrary = TestingLibrary::other { id: 1, id2: 1 };
+
+    println!(
+        "A biblioteca de testes selecionada foi: {}",
+        match selected_library {
+            TestingLibrary::jest => "Jest",
+            TestingLibrary::cypress => "Cypress",
+            TestingLibrary::vitest => "VI Test",
+            TestingLibrary::other { id: 1, id2: 1 } => "Received all ids",
+            TestingLibrary::other { id: _, id2: 1 } => "Received ID 2",
+            TestingLibrary::other { id: 1, id2: _ } => "Received ID 1",
+            TestingLibrary::other { id: _, id2: _ } => "Don't received nothing",
+        }
+    );
 }
